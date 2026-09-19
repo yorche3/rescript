@@ -13,51 +13,51 @@
 // esqueleto y las pruebas unitarias.
 let selection_sort = (array: array<int>) => {
   let n = Array.length(array);
-  for i in 0 .. n - 2 {
-    let mut min_index = i;
-    for j in i + 1 .. n - 1 {
-      if array[j] < array[min_index] {
-        min_index = j;
+  for i in 0 to n - 2 {
+    let min_index = ref(i);
+    for j in i + 1 to n - 1 {
+      if array[j] < array[min_index.contents] {
+        min_index := j;
       }
-    }
-    if min_index != i {
+    };
+    if min_index.contents != i {
       let temp = array[i];
-      array[i] = array[min_index];
-      array[min_index] = temp;
+      array[i] = array[min_index.contents];
+      array[min_index.contents] = temp;
     }
-  }
+  };
   array;
 };
 
 let bubble_sort = (array: array<int>) => {
   let n = Array.length(array);
-  for i in 0 .. n - 2 {
-    let mut swapped = false;
-    for j in 0 .. n - 2 - i {
+  let i = ref(0);
+  let swapped = ref(true);
+  while swapped.contents && i.contents <= n - 2 {
+    swapped := false;
+    for j in 0 to n - 2 - i.contents {
       if array[j] > array[j + 1] {
         let temp = array[j];
         array[j] = array[j + 1];
         array[j + 1] = temp;
-        swapped = true;
+        swapped := true;
       }
-    }
-    if !swapped {
-      break;
-    }
-  }
+    };
+    i := i.contents + 1;
+  };
   array;
 };
 
 let insertion_sort = (array: array<int>) => {
   let n = Array.length(array);
-  for i in 1 .. n - 1 {
+  for i in 1 to n - 1 {
     let key = array[i];
-    let mut j = i - 1;
-    while j >= 0 && array[j] > key {
-      array[j + 1] = array[j];
-      j = j - 1;
-    }
-    array[j + 1] = key;
-  }
+    let j = ref(i - 1);
+    while j.contents >= 0 && array[j.contents] > key {
+      array[j.contents + 1] = array[j.contents];
+      j := j.contents - 1;
+    };
+    array[j.contents + 1] = key;
+  };
   array;
 };
