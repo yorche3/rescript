@@ -11,3 +11,53 @@
 //
 // Implementación pendiente: la escribe el autor. Esta delegación solo genera el
 // esqueleto y las pruebas unitarias.
+let selection_sort = (array: array<int>) => {
+  let n = Array.length(array);
+  for i in 0 .. n - 2 {
+    let mut min_index = i;
+    for j in i + 1 .. n - 1 {
+      if array[j] < array[min_index] {
+        min_index = j;
+      }
+    }
+    if min_index != i {
+      let temp = array[i];
+      array[i] = array[min_index];
+      array[min_index] = temp;
+    }
+  }
+  array;
+};
+
+let bubble_sort = (array: array<int>) => {
+  let n = Array.length(array);
+  for i in 0 .. n - 2 {
+    let mut swapped = false;
+    for j in 0 .. n - 2 - i {
+      if array[j] > array[j + 1] {
+        let temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+        swapped = true;
+      }
+    }
+    if !swapped {
+      break;
+    }
+  }
+  array;
+};
+
+let insertion_sort = (array: array<int>) => {
+  let n = Array.length(array);
+  for i in 1 .. n - 1 {
+    let key = array[i];
+    let mut j = i - 1;
+    while j >= 0 && array[j] > key {
+      array[j + 1] = array[j];
+      j = j - 1;
+    }
+    array[j + 1] = key;
+  }
+  array;
+};
