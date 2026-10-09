@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build artefacts
+lib/
+.bsb.lock
+*.res.mjs
+*.bs.js

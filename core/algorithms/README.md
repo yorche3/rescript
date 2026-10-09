@@ -11,6 +11,7 @@ Los módulos de esta fase trabajan sobre **arrays mutables**, que se ordenan *in
 | Módulo | Especificación | Enfoque | Tests | Estado |
 |--------|---------------|---------|:-----:|:------:|
 | [`naive_sort/`](naive_sort/) | [05_Naive_Sort](https://yorche3.github.io/programming_languages/core/algorithms/05_Naive_Sort/) | `npm test` (rescript + Jest) | 21 | ✅ |
+| [`data_structures_basics/`](data_structures_basics/) | [06_Data_Structures_Basics](https://yorche3.github.io/programming_languages/core/algorithms/06_Data_Structures_Basics/) | `npm test` (rescript + Jest) | 15 | ✅ |
 
 ---
 
@@ -18,16 +19,30 @@ Los módulos de esta fase trabajan sobre **arrays mutables**, que se ordenan *in
 
 ```text
 algorithms/
-└── naive_sort/                      # 05_Naive_Sort
+├── naive_sort/                      # 05_Naive_Sort
+│   ├── src/
+│   │   └── naive_sort.res           # 3 funciones del contrato
+│   ├── test/
+│   │   └── naive_sort_tests.res     # 3 describe × 7 casos
+│   ├── rescript.json                # Fuentes, salida ESM in-source y deps dev
+│   ├── jest.config.js               # testMatch de los *_tests.res.mjs
+│   ├── babel.config.js              # preset-env para el JS generado
+│   ├── package.json                 # npm test = rescript && jest
+│   ├── .gitignore                   # Ignora node_modules/, lib/ y *.res.mjs
+│   └── README.md
+└── data_structures_basics/          # 06_Data_Structures_Basics
     ├── src/
-    │   └── naive_sort.res           # 3 funciones del contrato
+    │   ├── Node.res                 # Tipo Node compartido
+    │   ├── LinkedList.res           # Singly linked list
+    │   ├── Stack.res                # LIFO stack
+    │   └── Queue.res                # FIFO queue
     ├── test/
-    │   └── naive_sort_tests.res     # 3 describe × 7 casos
-    ├── rescript.json                # Fuentes, salida ESM in-source y deps dev
-    ├── jest.config.js               # testMatch de los *_tests.res.mjs
-    ├── babel.config.js              # preset-env para el JS generado
+    │   └── data_structures_basics_tests.res # 15 pruebas unitarias
+    ├── rescript.json                # Configuración ReScript ESM
+    ├── jest.config.js               # Configuración Jest
+    ├── babel.config.js              # Configuración Babel
     ├── package.json                 # npm test = rescript && jest
-    ├── .gitignore                   # Ignora node_modules/, lib/ y *.res.mjs
+    ├── .gitignore
     └── README.md
 ```
 
@@ -45,14 +60,14 @@ algorithms/
 | **Separación** | `src/` (módulo) ↔ `test/` (suites, en modo `dev` para el compilador) |
 | **Salida del compilador** | `package-specs` esmodule + `in-source: true` + sufijo `.res.mjs` (el JS generado queda junto al `.res` y está ignorado) |
 | **Iteración** | Bucles `for i in a to b { … }` y `while … { … }`; el compilador optimiza la auto-recursión de cola |
-| **Mutabilidad** | Los arrays son mutables (`array[i] = v`) → los algoritmos ordenan *in-place*; los acumuladores usan `ref` + `:=` + `.contents` |
-| **API** | Una función por algoritmo, con el array recibido y devuelto |
-| **Naming** | `snake_case` idéntico al de la especificación (`selection_sort`); el módulo derivado del fichero es `Naive_sort` |
-| **Nulabilidad** | `array<int>` no admite `null`: el caso nulo no es representable y se omite |
-| **Mensajes de aserción** | `expect` de Jest no admite mensaje: el mensaje del contrato se compone con el nombre del `describe` y el del `test` (`selection_sort › should sort an unsorted array`) |
-| **Verificación estática** | `npm run res:build` (`rescript`): compila módulo y suite sin errores ni avisos |
+| **Mutabilidad** | Los arrays y referencias de nodos son mutables (`record` con campos `mutable`) |
+| **API** | Una función o estructura por módulo |
+| **Naming** | `snake_case` o `camelCase` adaptado idiomáticamente |
+| **Nulabilidad** | Tipos no admiten `null`: ausencia modelada con `option<'a>` (`None`) |
+| **Mensajes de aserción** | `expect` de Jest no admite mensaje: el mensaje del contrato se compone con el nombre del `describe` y el del `test` |
+| **Verificación estática** | `npm run res:build` o `npx rescript`: compila módulo y suite sin errores ni avisos |
 | **Artefactos** | `node_modules/`, `lib/`, `.bsb.lock`, `*.res.mjs`, `*.bs.js` y `package-lock.json` — ignorados por el `.gitignore` del módulo |
-| **Sintaxis de la versión fijada** | `rescript ^11.1.4`: `for … to` (no `..`), `ref`/`:=` (no `let mut`) y sin `break` (la salida temprana va en la condición del `while`) |
+| **Sintaxis de la versión fijada** | `rescript ^11.1.4` |
 
 ---
 
@@ -61,6 +76,11 @@ algorithms/
 ```bash
 # Naive Sort Tests
 cd naive_sort
+npm install
+npm test
+
+# Data Structures Basics Tests
+cd data_structures_basics
 npm install
 npm test
 ```
