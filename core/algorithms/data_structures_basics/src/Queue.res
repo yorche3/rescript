@@ -1,31 +1,47 @@
 /**
  * FIFO queue built from scratch over Node.
- * Immutable: every operation returns a new queue.
- * The empty queue is the value `empty`, which is the `init()` of the contract.
+ * Mutable: the operations change the instance in place and return no structure;
+ * `init()` builds the empty queue, which is the `init()` of the contract.
  *
- * Failure indicator: `dequeue` and `peek` of an empty queue are -1, and `dequeue` returns the
- * pair (value, new queue) because an immutable structure has to hand the new state back.
- * `enqueue`, `dequeue` and `peek` are still skeletons: the algorithm is step 5.
+ * Failure indicator: `dequeue` and `peek` of an empty queue are -1; only the
+ * links (`front`, `rear`) use `None`.
  */
 type t = {
-  front: option<Node.t>,
-  rear: option<Node.t>,
-  count: int,
+  mutable front: option<Node.t>,
+  mutable rear: option<Node.t>,
+  mutable count: int,
 }
 
-let empty: t = {front: None, rear: None, count: 0}
+let init = (): t => {front: None, rear: None, count: 0}
 
 let isEmpty = (queue: t): bool => queue.count == 0
 let size = (queue: t): int => queue.count
 
-let enqueue = (_queue: t, _value: int): t => {
-  failwith("not implemented: enqueue")
+let enqueue = (queue: t, value: int): unit => {
+  let node: Node.t = {value, next: None}
+  switch queue.rear {
+  | None => queue.front = Some(node)
+  | Some(rear_node) => rear_node.next = Some(node)
+  }
+  queue.rear = Some(node)
+  queue.count = queue.count + 1
 }
 
-let dequeue = (_queue: t): (int, t) => {
-  failwith("not implemented: dequeue")
-}
+let dequeue = (queue: t): int =>
+  switch queue.front {
+  | None => -1
+  | Some(node) =>
+    queue.front = node.next
+    switch queue.front {
+    | None => queue.rear = None
+    | Some(_) => ()
+    }
+    queue.count = queue.count - 1
+    Node.value(node)
+  }
 
-let peek = (_queue: t): int => {
-  failwith("not implemented: peek")
-}
+let peek = (queue: t): int =>
+  switch queue.front {
+  | None => -1
+  | Some(node) => Node.value(node)
+  }
