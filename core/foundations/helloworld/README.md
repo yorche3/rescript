@@ -8,7 +8,7 @@ Implementación de la especificación [01_Hello_World](https://yorche3.github.io
 
 | Archivo | Propósito |
 |---------|-----------|
-| [`src/hello_world.res`](src/hello_world.res) | Código fuente: imprime `"Hello, World! from ReScript"` en la consola. |
+| [`src/hello_world.res`](src/hello_world.res) | Código fuente: imprime `"Hello, World! from ReScript!"` en la consola. |
 | [`rescript.json`](rescript.json) | Configuración del compilador ReScript (entradas, salida ES module). |
 | [`package.json`](package.json) | Dependencias (`rescript`, `@rescript/core`) y scripts de build. |
 
@@ -61,13 +61,13 @@ helloworld/
 ### `src/hello_world.res` — Código fuente
 
 ```rescript
-Js.log("Hello, World! from ReScript")
+Js.log("Hello, World! from ReScript!")
 ```
 
 | Elemento | Propósito |
 |----------|-----------|
 | `Js.log(...)` | Función de la API JS de ReScript: escribe en `console.log` con salto de línea. |
-| `"Hello, World! from ReScript"` | Argumento: la cadena a imprimir. |
+| `"Hello, World! from ReScript!"` | Argumento: la cadena a imprimir. |
 
 > **ES:** `Js.log` compila a `console.log`. La API `Js.*` es de bajo nivel; `@rescript/core` (incluido) ofrece `Console.log` con inferencia de tipos más rica.
 > **EN:** `Js.log` compiles to `console.log`. The `Js.*` API is low-level; `@rescript/core` (included) offers `Console.log` with richer type inference.
