@@ -1,1 +1,1 @@
-Js.log("Hello, World! from ReScript")
+Js.log("Hello, World! from ReScript!")
