@@ -103,7 +103,7 @@ let run = () => {
   let rl = createInterface(~input=stdin, ~output=stdout)
 
   question(rl,"Enter your name: ", name => {
-    Js.log2("Hello, ", name)
+    Js.log("Hello, " ++ name ++ "!")
     close(rl)
   })
 }
@@ -118,7 +118,7 @@ run()
 | `@send external question` | Enlaza `rl.question(prompt, callback)`; el callback recibe la línea leída. |
 | `@send external close` | Enlaza `rl.close()` para cerrar la interfaz. |
 | `@module("node:process") external stdin` | Enlaza `process.stdin` de Node. |
-| `Js.log2("Hello, ", name)` | `console.log` con dos argumentos (añade un espacio entre ellos). |
+| `Js.log("Hello, " ++ name ++ "!")` | `console.log` con dos argumentos (añade un espacio entre ellos). |
 | `let run = () => { ... }` | Función principal que orquesta el flujo; se invoca al final con `run()`. |
 
 > **ES:** Los *externals* con `@module`/`@send` son la forma de ReScript de declarar bindings a JavaScript. El `@string` de `on` restringe el nombre del evento a literales válidos (`line`/`close`).

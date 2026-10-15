@@ -19,7 +19,7 @@ let run = () => {
   let rl = createInterface(~input=stdin, ~output=stdout)
 
   question(rl,"Enter your name: ", name => {
-    Js.log2("Hello, ", name)
+    Js.log("Hello, " ++ name ++ "!")
     close(rl)
   })
 }
