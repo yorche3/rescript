@@ -10,14 +10,14 @@
  * para ReScript en `docs/ruleset/data/canonical_names.tsv` (`absent = None`,
  * `present = Some(x)`, familia `func-option`).
  *
- * Cuerpos centinela: la implementación llega en el paso siguiente; hasta
- * entonces las operaciones devuelven el valor neutro de su tipo.
+ * Cuerpos centinela sustituidos: `make` construye el nodo y `withLeft`/
+ * `withRight` devuelven una copia con el enlace indicado.
  */
 
 type rec t = {value: int, left: option<t>, right: option<t>}
 
 /** Nodo con el valor indicado y ambos enlaces ausentes (`init`). */
-let make = (_value: int): t => {value: 0, left: None, right: None}
+let make = (value: int): t => {value, left: None, right: None}
 
 /** Observa el valor del nodo. */
 let value = (node: t): int => node.value
@@ -29,7 +29,7 @@ let left = (node: t): option<t> => node.left
 let right = (node: t): option<t> => node.right
 
 /** Copia del nodo con el enlace izquierdo indicado (`set_left`). */
-let withLeft = (node: t, _left: option<t>): t => node
+let withLeft = (node: t, left: option<t>): t => { ...node, left }
 
 /** Copia del nodo con el enlace derecho indicado (`set_right`). */
-let withRight = (node: t, _right: option<t>): t => node
+let withRight = (node: t, right: option<t>): t => { ...node, right }

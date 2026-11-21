@@ -2,7 +2,7 @@ open Jest
 open Expect
 
 // Casos de prueba de la especificación 07_Data_Structures_Advanced.md
-// (TreeNode: 6 casos, BinaryTree: 7 casos, Graph: 10 casos; 23 en total).
+// (TreeNode: 6 casos, BinaryTree: 7 casos, Graph: 11 casos; 24 en total).
 //
 // Variante V2 inmutable: cada operación devuelve la estructura resultante, así que cada caso
 // parte de una instancia recién creada con `init()`/`make` y ejecuta sus pasos en orden; no se
@@ -386,5 +386,17 @@ describe("Graph", () => {
       )
     },
     ([true, true], true, Some([label_a]), (1, 1)),
+  )
+
+  assert_case(
+    "should isolate the neighbour result from the graph",
+    () => {
+      let (graph, _) =
+        add_edges(register_all([label_a, label_b, label_c]), [(label_a, label_b)])
+      let saved = Graph.getNeighbors(graph, label_a)
+      let (graph, _) = add_edges(graph, [(label_a, label_c)])
+      (saved, Graph.getNeighbors(graph, label_a), counts(graph))
+    },
+    (Some([label_b]), Some([label_b, label_c]), (3, 2)),
   )
 })
