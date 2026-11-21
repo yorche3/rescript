@@ -12,6 +12,7 @@ Los módulos de esta fase trabajan sobre **arrays mutables**, que se ordenan *in
 |--------|---------------|---------|:-----:|:------:|
 | [`naive_sort/`](naive_sort/) | [05_Naive_Sort](https://yorche3.github.io/programming_languages/core/algorithms/05_Naive_Sort/) | `npm test` (rescript + Jest) | 21 | ✅ |
 | [`data_structures_basics/`](data_structures_basics/) | [06_Data_Structures_Basics](https://yorche3.github.io/programming_languages/core/algorithms/06_Data_Structures_Basics/) | `npm test` (rescript + Jest) | 15 | ✅ |
+| [`data_structures_advanced/`](data_structures_advanced/) | [07_Data_Structures_Advanced](https://yorche3.github.io/programming_languages/core/algorithms/07_Data_Structures_Advanced/) | `npm test` (rescript + Jest) | 24 | ✅ |
 
 ---
 
@@ -30,7 +31,7 @@ algorithms/
 │   ├── package.json                 # npm test = rescript && jest
 │   ├── .gitignore                   # Ignora node_modules/, lib/ y *.res.mjs
 │   └── README.md
-└── data_structures_basics/          # 06_Data_Structures_Basics
+├── data_structures_basics/          # 06_Data_Structures_Basics
     ├── src/
     │   ├── Node.res                 # Tipo Node compartido
     │   ├── LinkedList.res           # Singly linked list
@@ -38,6 +39,19 @@ algorithms/
     │   └── Queue.res                # FIFO queue
     ├── test/
     │   └── data_structures_basics_tests.res # 15 pruebas unitarias
+    ├── rescript.json                # Configuración ReScript ESM
+    ├── jest.config.js               # Configuración Jest
+    ├── babel.config.js              # Configuración Babel
+    ├── package.json                 # npm test = rescript && jest
+    ├── .gitignore
+    └── README.md
+└── data_structures_advanced/        # 07_Data_Structures_Advanced
+    ├── src/
+    │   ├── TreeNode.res             # Nodo inmutable del árbol binario
+    │   ├── BinaryTree.res           # Árbol binario de búsqueda inmutable
+    │   └── Graph.res                # Grafo dirigido inmutable
+    ├── test/
+    │   └── data_structures_advanced_tests.res # 24 pruebas unitarias
     ├── rescript.json                # Configuración ReScript ESM
     ├── jest.config.js               # Configuración Jest
     ├── babel.config.js              # Configuración Babel
@@ -81,6 +95,11 @@ npm test
 
 # Data Structures Basics Tests
 cd data_structures_basics
+npm install
+npm test
+
+# Data Structures Advanced Tests
+cd data_structures_advanced
 npm install
 npm test
 ```
